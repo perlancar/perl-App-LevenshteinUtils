@@ -14,17 +14,10 @@ our %SPEC;
 our @algos = (
     'editdist',
     'Text::Fuzzy',
-           PERLANCAR::Text::Levenshtein 0.02
-
-       Text::Fuzzy 0.25
-
-       Text::Levenshtein 0.13
-
-       Text::Levenshtein::Flexible 0.09
-
-       Text::Levenshtein::XS 0.503
-
-       Text::LevenshteinXS 0.03
+    'Text::Levenshtein',
+    'Text::Levenshtein::Flexible',
+    'Text::Levenshtein::XS',
+    'Text::LevenshteinXS',
 );
 
 $SPEC{editdist} = {
@@ -56,6 +49,21 @@ sub editdist {
     if ($algo eq 'editdist') {
         require PERLANCAR::Text::Levenshtein;
         return [200,"OK",PERLANCAR::Text::Levenshtein::editdist($str1, $str2)];
+    } elsif ($algo eq 'Text::Fuzzy') {
+        require Text::Fuzzy;
+        return [200,"OK",Text::Fuzzy->new($str1)->distance($str2)];
+    } elsif ($algo eq 'Text::Levenshtein') {
+        require Text::Levenshtein;
+        return [200,"OK",Text::Levenshtein::fastdistance($str1,$str2)];
+    } elsif ($algo eq 'Text::Levenshtein::XS') {
+        require Text::Levenshtein::XS;
+        return [200,"OK",Text::Levenshtein::XS::distance($str1,$str2)];
+    } elsif ($algo eq 'Text::LevenshteinXS') {
+        require Text::LevenshteinXS;
+        return [200,"OK",Text::LevenshteinXS::distance($str1,$str2)];
+    } elsif ($algo eq 'Text::Levenshtein::Flexible') {
+        require Text::Levenshtein::Flexible;
+        return [200,"OK",Text::Levenshtein::Flexible::levenshtein($str1,$str2)];
     } else {
         return [400, "Unknown algorithm '$algo'"];
     }
