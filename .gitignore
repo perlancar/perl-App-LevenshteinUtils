@@ -1,0 +1,4 @@
+App-LevenshteinUtils-*
+.build
+*~
+nytprof*
