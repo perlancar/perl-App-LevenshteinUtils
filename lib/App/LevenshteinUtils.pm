@@ -83,3 +83,8 @@ levenshtein algorithm:
 =head1 SEE ALSO
 
 L<Bencher::Scenario::LevenshteinModules>
+
+L<App::TextSimilarityUtils>
+
+L<complete-array-elem> from L<App::CompleteCLIs>, a CLI for L<Complete::Util>'s
+C<complete_array_elem>.
